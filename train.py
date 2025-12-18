@@ -1,15 +1,18 @@
 from stable_baselines3 import PPO
 from arm_env import ArmEnv
 
-env = ArmEnv(render=False)
+env = ArmEnv(render=False, control_freq=100)
 
+# Increase network size slightly since we added an observation
 model = PPO(
-    "MlpPolicy",
-    env,
+    "MlpPolicy", 
+    env, 
     verbose=1,
-    tensorboard_log="./logs/"
+    learning_rate=3e-4,
+    n_steps=2048,
+    batch_size=64,
+    policy_kwargs=dict(net_arch=[128, 128])  # Slightly larger network
 )
 
-model.learn(total_timesteps=50_000)
-model.save("arm_model")
-env.close()
+model.learn(total_timesteps=500000)
+model.save("arm_policy_improved")
