@@ -1,9 +1,9 @@
 import time
 from stable_baselines3 import PPO
-from arm_env import ArmEnv
+from arm_env import TwoJointArmEnv
 
-env = ArmEnv(render=True)
-model = PPO.load("arm_model")
+env = TwoJointArmEnv(render=True)
+model = PPO.load("two_joint_arm_policy")
 
 obs, _ = env.reset()
 

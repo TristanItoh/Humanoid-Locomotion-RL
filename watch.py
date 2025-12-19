@@ -1,11 +1,12 @@
 from stable_baselines3 import PPO
-from arm_env import ArmEnv
+from arm_env import TwoJointArmEnv
 import time
 
-env = ArmEnv(render=True)
-model = PPO.load("arm_policy_improved", env=env)
+env = TwoJointArmEnv(render=True)
+model = PPO.load("torque_arm_final", env=env)
 
 obs, _ = env.reset()
+
 
 while True:
     action, _ = model.predict(obs)
